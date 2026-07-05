@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>هاتف القمر</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#0b0f1a;--s1:#111827;--s2:#1a2235;--s3:#1f2a40;--border:#2a3548;--gold:#f5c842;--gold2:#c99d20;--red:#ef4444;--green:#22c55e;--blue:#3b82f6;--purple:#a855f7;--orange:#f97316;--teal:#14b8a6;--text:#f1f5f9;--muted:#64748b;--muted2:#94a3b8}
+body{font-family:'Cairo',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;direction:rtl}
+.hdr{background:linear-gradient(135deg,#111827,#0b0f1a);border-bottom:1px solid var(--border);padding:13px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.brand{display:flex;align-items:center;gap:11px}
+.logo{width:40px;height:40px;background:linear-gradient(135deg,var(--gold),var(--gold2));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:19px;box-shadow:0 0 16px rgba(245,200,66,.3)}
+.bn{font-size:17px;font-weight:800}.bs{font-size:11px;color:var(--muted2)}
+.hr{display:flex;gap:7px;align-items:center}
+.hdate{font-size:12px;color:var(--muted2);background:var(--s2);padding:5px 11px;border-radius:20px;border:1px solid var(--border)}
+.btn{padding:8px 14px;border-radius:8px;border:none;cursor:pointer;font-family:'Cairo',sans-serif;font-size:13px;font-weight:600;transition:all .2s;display:inline-flex;align-items:center;gap:5px}
+.bg{background:linear-gradient(135deg,var(--gold),var(--gold2));color:#000}.bg:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(245,200,66,.3)}
+.bo{background:transparent;color:var(--muted2);border:1px solid var(--border)}.bo:hover{border-color:var(--gold);color:var(--gold)}
+.br{background:rgba(239,68,68,.1);color:var(--red);border:1px solid rgba(239,68,68,.2)}
+.bgg{background:rgba(34,197,94,.1);color:var(--green);border:1px solid rgba(34,197,94,.2)}
+.bb{background:rgba(59,130,246,.1);color:var(--blue);border:1px solid rgba(59,130,246,.2)}
+.bp{background:rgba(168,85,247,.1);color:var(--purple);border:1px solid rgba(168,85,247,.2)}
+.nav{background:var(--s1);border-bottom:1px solid var(--border);padding:0 24px;display:flex;gap:2px;overflow-x:auto}
+.nb{padding:12px 16px;background:none;border:none;color:var(--muted2);font-family:'Cairo',sans-serif;font-size:13px;font-weight:600;cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;white-space:nowrap}
+.nb:hover{color:var(--text)}.nb.active{color:var(--gold);border-bottom-color:var(--gold)}
+.page{padding:20px 24px;max-width:1500px;margin:0 auto}
+.view{display:none}.view.active{display:block;animation:fu .3s ease}
+@keyframes fu{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.kg{display:grid;grid-template-columns:repeat(6,1fr);gap:11px;margin-bottom:18px}
+.kpi{background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:15px 16px;position:relative;overflow:hidden;transition:transform .2s}
+.kpi:hover{transform:translateY(-2px)}
+.kpi::after{content:'';position:absolute;top:0;right:0;width:3px;height:100%;border-radius:0 12px 12px 0}
+.kpi.gd::after{background:var(--gold)}.kpi.gn::after{background:var(--green)}.kpi.rd::after{background:var(--red)}.kpi.bl::after{background:var(--blue)}.kpi.pp::after{background:var(--purple)}.kpi.or::after{background:var(--orange)}
+.ki{font-size:18px;margin-bottom:5px}.kl{font-size:10px;color:var(--muted2);margin-bottom:3px}
+.kv{font-size:20px;font-weight:900;line-height:1}
+.kpi.gd .kv{color:var(--gold)}.kpi.gn .kv{color:var(--green)}.kpi.rd .kv{color:var(--red)}.kpi.bl .kv{color:var(--blue)}.kpi.pp .kv{color:var(--purple)}.kpi.or .kv{color:var(--orange)}
+.ku{font-size:10px;color:var(--muted);margin-top:2px}
+.card{background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:18px}
+.ct{font-size:14px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between}
+.ctl{display:flex;align-items:center;gap:7px}.ac{color:var(--gold)}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-bottom:16px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:15px;margin-bottom:16px}
+/* table */
+.tb{display:flex;gap:7px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+.si{flex:1;min-width:170px;background:var(--s1);border:1px solid var(--border);border-radius:8px;padding:8px 12px;color:var(--text);font-family:'Cairo',sans-serif;font-size:13px;outline:none}
+.si:focus{border-color:var(--gold)}
+.chip{padding:6px 12px;border-radius:20px;border:1px solid var(--border);background:var(--s1);color:var(--muted2);font-family:'Cairo',sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;white-space:nowrap}
+.aa{background:var(--gold);color:#000;border:none}.al{background:var(--red);color:#fff;border:none}.ar{background:var(--green);color:#fff;border:none}.ap{background:var(--blue);color:#fff;border:none}.as{background:var(--purple);color:#fff;border:none}
+.tw{background:var(--s1);border:1px solid var(--border);border-radius:12px;overflow:hidden;overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px;table-layout:fixed}
+th,td{padding:10px 13px;vertical-align:middle;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;box-sizing:border-box}
+th{background:var(--s2);text-align:right;color:var(--muted2);font-weight:700;border-bottom:2px solid var(--border);user-select:none;cursor:pointer}
+th:hover{color:var(--text)}
+td{border-bottom:1px solid rgba(42,53,72,.5);text-align:right}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:rgba(255,255,255,.025)}
+.tw table colgroup col{display:table-column}
+.n{font-variant-numeric:tabular-nums;font-weight:700;letter-spacing:.3px}
+.bdg{display:inline-flex;align-items:center;gap:3px;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:700}
+.bl2{background:rgba(239,68,68,.12);color:var(--red)}.br2{background:rgba(34,197,94,.12);color:var(--green)}.bp2{background:rgba(59,130,246,.12);color:var(--blue)}.bs2{background:rgba(168,85,247,.12);color:var(--purple)}
+.ng{color:var(--gold)}.nn{color:var(--green)}.nr{color:var(--red)}.no{color:var(--orange)}.np{color:var(--purple)}
+.num-col{text-align:left!important;direction:ltr}
+.ta{display:flex;gap:4px;flex-wrap:wrap}
+.ab{padding:4px 8px;border-radius:6px;border:none;cursor:pointer;font-family:'Cairo',sans-serif;font-size:11px;font-weight:600;transition:all .15s;white-space:nowrap}
+.ap2{background:rgba(34,197,94,.1);color:var(--green)}.ap2:hover{background:rgba(34,197,94,.25)}
+.ae{background:rgba(59,130,246,.1);color:var(--blue)}.ae:hover{background:rgba(59,130,246,.25)}
+.ad{background:rgba(239,68,68,.08);color:var(--red)}.ad:hover{background:rgba(239,68,68,.2)}
+.ast{background:rgba(168,85,247,.1);color:var(--purple)}.ast:hover{background:rgba(168,85,247,.25)}
+/* progress */
+.pi{margin-bottom:12px}.ph{display:flex;justify-content:space-between;margin-bottom:4px;font-size:12px}
+.pt{height:8px;background:var(--s3);border-radius:4px;overflow:hidden}
+.pf{height:100%;border-radius:4px;transition:width 1s ease}
+/* bar */
+.bi{display:flex;align-items:center;gap:8px;margin-bottom:7px}
+.bn2{font-size:12px;width:130px;text-align:right;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;flex-shrink:0}
+.bt{flex:1;height:20px;background:var(--s3);border-radius:4px;overflow:hidden}
+.bf{height:100%;border-radius:4px;display:flex;align-items:center;justify-content:flex-end;padding-left:7px;min-width:36px}
+.ba{font-size:11px;font-weight:700;color:#fff;white-space:nowrap}
+/* overlay */
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:200;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px)}
+.ov.open{display:flex}
+.modal{background:var(--s1);border:1px solid var(--border);border-radius:16px;padding:24px;width:100%;max-width:540px;max-height:92vh;overflow-y:auto;animation:pi2 .22s ease}
+@keyframes pi2{from{transform:scale(.9);opacity:0}to{transform:scale(1);opacity:1}}
+.mt{font-size:16px;font-weight:800;margin-bottom:18px;display:flex;align-items:center;justify-content:space-between}
+.mc{background:none;border:none;color:var(--muted2);cursor:pointer;font-size:18px;padding:4px 7px;border-radius:6px}
+.mc:hover{color:var(--text);background:var(--s2)}
+.fr{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:11px}
+.fg{display:flex;flex-direction:column;gap:5px}.full{grid-column:1/-1}
+label{font-size:11px;color:var(--muted2);font-weight:600}
+input,select,textarea{background:var(--s2);border:1px solid var(--border);border-radius:7px;padding:9px 11px;color:var(--text);font-family:'Cairo',sans-serif;font-size:13px;outline:none;transition:border .2s;width:100%}
+input:focus,select:focus,textarea:focus{border-color:var(--gold)}
+select option{background:var(--s2)}
+textarea{resize:vertical;min-height:70px}
+.fa{display:flex;gap:8px;justify-content:flex-end;margin-top:18px}
+/* pay */
+.pr{display:flex;justify-content:space-between;padding:5px 0;font-size:13px;border-bottom:1px solid rgba(42,53,72,.5)}
+.pr:last-child{border:none;font-weight:700;padding-top:7px}
+/* month */
+.ms{background:var(--s2);border-radius:12px;padding:16px;margin-bottom:14px}
+.mg{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.mv{font-size:21px;font-weight:900;line-height:1}.ml{font-size:11px;color:var(--muted2);margin-top:2px}
+/* stat */
+.sb{background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:14px 17px}
+.sb h3{font-size:11px;color:var(--muted2);margin-bottom:9px;text-transform:uppercase;letter-spacing:.5px}
+.sr{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid rgba(42,53,72,.4);font-size:13px}
+.sr:last-child{border:none;font-weight:700}.sk{color:var(--muted2)}
+/* product badge */
+.prod-tag{display:inline-flex;align-items:center;gap:4px;background:rgba(20,184,166,.1);color:var(--teal);border:1px solid rgba(20,184,166,.2);border-radius:6px;padding:2px 8px;font-size:11px;font-weight:600;white-space:nowrap}
+/* pay hist */
+.phi{display:flex;justify-content:space-between;align-items:center;padding:9px 13px;border-bottom:1px solid rgba(42,53,72,.5);font-size:13px}
+.phi:last-child{border:none}
+/* toast */
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(100px);background:var(--s1);border:1px solid var(--border);border-radius:12px;padding:11px 18px;font-size:13px;font-weight:600;z-index:300;transition:transform .3s;box-shadow:0 8px 28px rgba(0,0,0,.4)}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.toast.success{border-color:var(--green);color:var(--green)}.toast.error{border-color:var(--red);color:var(--red)}.toast.info{border-color:var(--blue);color:var(--blue)}
+.empty{text-align:center;padding:30px;color:var(--muted)}
+.srow td{background:rgba(168,85,247,.04)}
+::-webkit-scrollbar{width:5px;height:5px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+@media(max-width:1100px){.kg{grid-template-columns:repeat(3,1fr)}.g2,.g3{grid-template-columns:1fr}}
+@media(max-width:700px){.page{padding:11px}.hdr{padding:10px 13px}.kg{grid-template-columns:1fr 1fr}.mg{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<div class="hdr">
+  <div class="brand">
+    <div class="logo">📱</div>
+    <div><div class="bn">هاتف القمر</div><div class="bs">نظام إدارة العملاء</div></div>
+  </div>
+  <div class="hr">
+    <div class="hdate" id="hdate"></div>
+    <button class="btn bg" onclick="openAdd()">➕ عميل جديد</button>
+    <button class="btn bo" onclick="exportCSV()">📥 تصدير</button>
+  </div>
+</div>
+<div class="nav">
+  <button class="nb active" onclick="sv('overview',this)">📊 الرئيسية</button>
+  <button class="nb" onclick="sv('monthly',this)">📅 التقرير الشهري</button>
+  <button class="nb" onclick="sv('clients',this)">👥 العملاء</button>
+  <button class="nb" onclick="sv('late',this)">⚠️ المتأخرون</button>
+  <button class="nb" onclick="sv('stopped',this)">🚫 موقوف الخدمة</button>
+  <button class="nb" onclick="sv('analytics',this)">📈 التحليلات</button>
+</div>
+<div class="page">
+
+<!-- OVERVIEW -->
+<div class="view active" id="view-overview">
+  <div class="kg" id="kpiGrid"></div>
+  <div class="g2">
+    <div class="card"><div class="ct"><div class="ctl"><span class="ac">◉</span> حالة العملاء</div></div>
+      <div style="display:flex;align-items:center;gap:16px">
+        <svg id="dsvg" width="118" height="118" viewBox="0 0 118 118" style="flex-shrink:0"></svg>
+        <div id="dleg" style="flex:1"></div>
+      </div>
+    </div>
+    <div class="card"><div class="ct"><div class="ctl"><span class="ac">◉</span> نسبة التحصيل</div></div><div id="crate"></div></div>
+  </div>
+  <div class="card" style="margin-bottom:16px"><div class="ct"><div class="ctl"><span class="ac">◉</span> أعلى 10 أرصدة متبقية</div></div><div id="topbar"></div></div>
+  <div class="g3" id="statboxes"></div>
+</div>
+
+<!-- MONTHLY -->
+<div class="view" id="view-monthly">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:9px">
+    <div style="font-size:15px;font-weight:700">📅 التقرير الشهري</div>
+    <div style="display:flex;gap:7px">
+      <select id="msel" onchange="renderMonthly()" style="width:auto;padding:7px 11px">
+        <option value="1">يناير</option><option value="2">فبراير</option><option value="3">مارس</option>
+        <option value="4">أبريل</option><option value="5">مايو</option><option value="6">يونيو</option>
+        <option value="7">يوليو</option><option value="8">أغسطس</option><option value="9">سبتمبر</option>
+        <option value="10">أكتوبر</option><option value="11">نوفمبر</option><option value="12">ديسمبر</option>
+      </select>
+      <select id="ysel" onchange="renderMonthly()" style="width:auto;padding:7px 11px">
+        <option value="2024">2024</option><option value="2025">2025</option><option value="2026">2026</option>
+      </select>
+    </div>
+  </div>
+  <div class="ms" id="msummary"></div>
+  <div class="g2" style="margin-bottom:14px">
+    <div class="card">
+      <div class="ct"><div class="ctl"><span style="color:var(--green)">◉</span> دفعوا هذا الشهر ✅</div><span id="paidCnt" style="font-size:12px;color:var(--green)"></span></div>
+      <div id="paidList"></div>
+    </div>
+    <div class="card">
+      <div class="ct"><div class="ctl"><span style="color:var(--red)">◉</span> لم يدفعوا / متأخرون ⚠️</div><span id="lateCnt2" style="font-size:12px;color:var(--red)"></span></div>
+      <div id="lateList"></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="ct"><div class="ctl"><span class="ac">◉</span> تفاصيل سدادات الشهر</div></div>
+    <div class="tw"><table>
+      <colgroup>
+        <col style="width:42px"><col style="width:150px"><col style="width:130px">
+        <col style="width:140px"><col style="width:100px"><col style="width:100px">
+        <col style="width:110px"><col style="width:80px"><col style="width:80px">
+      </colgroup>
+      <thead><tr>
+        <th style="text-align:center">#</th><th>الاسم</th><th>المنتج</th><th>السند</th>
+        <th style="text-align:center">القسط الشهري</th>
+        <th style="text-align:center">دفع هذا الشهر</th>
+        <th style="text-align:center">تاريخ السداد</th>
+        <th style="text-align:center">الحالة</th><th style="text-align:center">إجراء</th>
+      </tr></thead><tbody id="mTbody"></tbody></table></div>
+  </div>
+</div>
+
+<!-- CLIENTS -->
+<div class="view" id="view-clients">
+  <div class="tb">
+    <input class="si" id="srch" placeholder="🔍 ابحث بالاسم أو الجوال أو المنتج أو السند..." oninput="renderTable()">
+    <button class="chip aa" onclick="setFilter('all',this)">الكل</button>
+    <button class="chip" onclick="setFilter('متأخر',this)">⚠️ متأخر</button>
+    <button class="chip" onclick="setFilter('منتظم',this)">✅ منتظم</button>
+    <button class="chip" onclick="setFilter('خالص',this)">💙 خالص</button>
+    <button class="chip" onclick="setFilter('موقوف',this)">🚫 موقوف</button>
+  </div>
+  <div class="tw"><table>
+    <colgroup>
+      <col style="width:42px"><col style="width:150px"><col style="width:115px">
+      <col style="width:120px"><col style="width:90px"><col style="width:140px">
+      <col style="width:100px"><col style="width:100px"><col style="width:100px"><col style="width:100px">
+      <col style="width:85px"><col style="width:130px">
+    </colgroup>
+    <thead><tr>
+      <th style="text-align:center">#</th>
+      <th onclick="srt(1)">الاسم ↕</th>
+      <th style="text-align:center">الجوال</th>
+      <th>المنتج</th>
+      <th style="text-align:center">تاريخ الشراء</th>
+      <th>السند</th>
+      <th onclick="srt(3)" style="text-align:center">المستحق ↕</th>
+      <th onclick="srt(6)" style="text-align:center">المحصّل ↕</th>
+      <th onclick="srt(7)" style="text-align:center">المتأخرات ↕</th>
+      <th onclick="srt(8)" style="text-align:center">المتبقي ↕</th>
+      <th style="text-align:center">الحالة</th>
+      <th style="text-align:center">إجراءات</th>
+    </tr></thead><tbody id="tbody"></tbody></table></div>
+  <div id="tcount" style="text-align:center;font-size:11px;color:var(--muted);margin-top:9px"></div>
+</div>
+
+<!-- LATE -->
+<div class="view" id="view-late">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+    <div style="font-size:15px;font-weight:700">⚠️ العملاء المتأخرون</div>
+    <div id="lateBadge" style="background:rgba(239,68,68,.15);color:var(--red);border:1px solid rgba(239,68,68,.3);border-radius:20px;padding:4px 13px;font-size:13px;font-weight:700"></div>
+  </div>
+  <div class="tw"><table>
+    <colgroup>
+      <col style="width:42px"><col style="width:150px"><col style="width:115px">
+      <col style="width:120px"><col style="width:140px">
+      <col style="width:100px"><col style="width:100px"><col style="width:100px"><col style="width:140px">
+    </colgroup>
+    <thead><tr>
+      <th style="text-align:center">#</th><th>الاسم</th><th style="text-align:center">الجوال</th>
+      <th>المنتج</th><th>السند</th>
+      <th onclick="srtL(7)" style="text-align:center">المتأخرات ↕</th>
+      <th onclick="srtL(8)" style="text-align:center">المتبقي ↕</th>
+      <th style="text-align:center">القسط</th><th style="text-align:center">إجراءات</th>
+    </tr></thead><tbody id="lTbody"></tbody></table></div>
+</div>
+
+<!-- STOPPED -->
+<div class="view" id="view-stopped">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-wrap:wrap;gap:8px">
+    <div style="font-size:15px;font-weight:700">🚫 موقوف الخدمة</div>
+    <div id="stopBadge" style="background:rgba(168,85,247,.15);color:var(--purple);border:1px solid rgba(168,85,247,.3);border-radius:20px;padding:4px 13px;font-size:13px;font-weight:700"></div>
+  </div>
+  <div style="background:rgba(168,85,247,.07);border:1px solid rgba(168,85,247,.2);border-radius:9px;padding:11px 15px;margin-bottom:14px;font-size:13px;color:var(--muted2)">
+    🔔 هؤلاء العملاء تم إيقاف خدمتهم. يمكنك استعادة الخدمة بعد تسجيل السداد.
+  </div>
+  <div class="tw"><table>
+    <colgroup>
+      <col style="width:42px"><col style="width:150px"><col style="width:115px">
+      <col style="width:120px"><col style="width:140px"><col style="width:100px">
+      <col style="width:100px"><col style="width:140px"><col style="width:140px">
+    </colgroup>
+    <thead><tr>
+      <th style="text-align:center">#</th><th>الاسم</th><th style="text-align:center">الجوال</th>
+      <th>المنتج</th><th>السند</th>
+      <th style="text-align:center">المتبقي</th>
+      <th style="text-align:center">تاريخ الإيقاف</th><th>السبب</th><th style="text-align:center">إجراءات</th>
+    </tr></thead><tbody id="sTbody"></tbody></table></div>
+</div>
+
+<!-- ANALYTICS -->
+<div class="view" id="view-analytics">
+  <div class="g3" id="acards" style="margin-bottom:16px"></div>
+  <div class="g2" style="margin-bottom:16px">
+    <div class="card"><div class="ct"><div class="ctl"><span class="ac">◉</span> التحصيل الشهري (آخر 6 أشهر)</div></div><div id="mchart"></div></div>
+    <div class="card"><div class="ct"><div class="ctl"><span class="ac">◉</span> معدل التحصيل حسب الحالة</div></div><div id="ratestat"></div></div>
+  </div>
+  <div class="card"><div class="ct"><div class="ctl"><span class="ac">◉</span> مقارنة المحصّل والمتبقي — أكبر 15 عميلاً</div></div><div id="abar"></div></div>
+</div>
+
+</div><!-- end page -->
+
+<!-- MODAL CLIENT -->
+<div class="ov" id="cModal">
+<div class="modal">
+  <div class="mt"><span id="mTitle">إضافة عميل</span><button class="mc" onclick="cm('cModal')">✕</button></div>
+  <div class="fr"><div class="fg full"><label>اسم العميل *</label><input id="fn" placeholder="الاسم الكامل"></div></div>
+  <div class="fr">
+    <div class="fg"><label>رقم الهوية</label><input id="fi" placeholder="رقم الهوية"></div>
+    <div class="fg"><label>رقم الجوال</label><input id="fp" placeholder="05xxxxxxxx"></div>
+  </div>
+  <div style="background:rgba(20,184,166,.07);border:1px solid rgba(20,184,166,.2);border-radius:9px;padding:13px;margin-bottom:11px">
+    <div style="font-size:12px;font-weight:700;color:var(--teal);margin-bottom:9px">📦 بيان المنتج</div>
+    <div class="fr" style="margin-bottom:0">
+      <div class="fg"><label>اسم المنتج</label><input id="fprod" placeholder="مثال: iPhone 15 Pro"></div>
+      <div class="fg"><label>تاريخ الشراء</label><input id="fbuydate" type="date"></div>
+    </div>
+  </div>
+  <div class="fr">
+    <div class="fg"><label>إجمالي المستحق ﷼ *</label><input id="fdue" type="number" min="0" placeholder="0" oninput="calcR()"></div>
+    <div class="fg"><label>التكلفة ﷼</label><input id="fcost" type="number" min="0" placeholder="0"></div>
+  </div>
+  <div class="fr">
+    <div class="fg"><label>القسط الشهري ﷼</label><input id="fmon" type="number" min="0" placeholder="0"></div>
+    <div class="fg"><label>المحصّل ﷼</label><input id="fpaid" type="number" min="0" placeholder="0" oninput="calcR()"></div>
+  </div>
+  <div class="fr">
+    <div class="fg"><label>المتأخرات ﷼</label><input id="flat" type="number" min="0" placeholder="0"></div>
+    <div class="fg"><label>المتبقي ﷼ (تلقائي)</label><input id="frem" type="number" min="0" placeholder="0" style="color:var(--red)"></div>
+  </div>
+  <div class="fr">
+    <div class="fg"><label>الحالة</label>
+      <select id="fstat">
+        <option value="منتظم">✅ منتظم</option>
+        <option value="متأخر">⚠️ متأخر</option>
+        <option value="خالص">💙 خالص</option>
+        <option value="موقوف">🚫 موقوف الخدمة</option>
+      </select>
+    </div>
+    <div class="fg"><label>تاريخ الإيقاف</label><input id="fstopd" type="date"></div>
+  </div>
+  <div class="fr"><div class="fg full"><label>سبب الإيقاف</label><input id="fstopr" placeholder="مثال: عدم السداد لمدة 3 أشهر"></div></div>
+  <div style="background:rgba(20,184,166,.07);border:1px solid rgba(20,184,166,.2);border-radius:9px;padding:13px;margin-bottom:11px">
+    <div style="font-size:12px;font-weight:700;color:var(--teal);margin-bottom:9px">📋 السند</div>
+    <div class="fr" style="margin-bottom:0">
+      <div class="fg full"><label>السند معمول باسم</label><input id="fbond" placeholder="مثال: سند باسم محمد أحمد"></div>
+    </div>
+  </div>
+  <div class="fa">
+    <button class="btn bo" onclick="cm('cModal')">إلغاء</button>
+    <button class="btn bg" onclick="saveClient()">💾 حفظ</button>
+  </div>
+</div>
+</div>
+
+<!-- MODAL PAY -->
+<div class="ov" id="pModal">
+<div class="modal" style="max-width:430px">
+  <div class="mt"><span>💵 تسجيل سداد</span><button class="mc" onclick="cm('pModal')">✕</button></div>
+  <div style="background:var(--s2);border-radius:9px;padding:12px;margin-bottom:14px" id="payInfo"></div>
+  <div class="fr">
+    <div class="fg"><label>مبلغ السداد ﷼ *</label><input id="pamt" type="number" min="1" placeholder="0" oninput="pprev()"></div>
+    <div class="fg"><label>تاريخ السداد *</label><input id="pdate" type="date"></div>
+  </div>
+  <div id="pprevEl" style="display:none;padding:9px;background:var(--s3);border-radius:7px;font-size:12px;color:var(--muted2);margin-top:6px"></div>
+  <div id="phist"></div>
+  <div class="fa">
+    <button class="btn bo" onclick="cm('pModal')">إلغاء</button>
+    <button class="btn bgg" onclick="savePay()">✅ تأكيد السداد</button>
+  </div>
+</div>
+</div>
+
+<!-- MODAL STOP -->
+<div class="ov" id="stModal">
+<div class="modal" style="max-width:390px">
+  <div class="mt"><span style="color:var(--purple)">🚫 إيقاف الخدمة</span><button class="mc" onclick="cm('stModal')">✕</button></div>
+  <p style="font-size:13px;color:var(--muted2);margin-bottom:5px">إيقاف خدمة:</p>
+  <p id="stName" style="font-size:15px;font-weight:700;margin-bottom:14px"></p>
+  <div class="fr"><div class="fg full"><label>تاريخ الإيقاف</label><input id="stDate" type="date"></div></div>
+  <div class="fr"><div class="fg full"><label>السبب</label><input id="stReason" placeholder="مثال: عدم السداد لمدة شهرين"></div></div>
+  <div class="fa">
+    <button class="btn bo" onclick="cm('stModal')">إلغاء</button>
+    <button class="btn bp" onclick="confirmStop()">🚫 إيقاف</button>
+  </div>
+</div>
+</div>
+
+<!-- MODAL DELETE -->
+<div class="ov" id="dModal">
+<div class="modal" style="max-width:350px">
+  <div class="mt"><span style="color:var(--red)">🗑️ حذف عميل</span><button class="mc" onclick="cm('dModal')">✕</button></div>
+  <p style="font-size:13px;color:var(--muted2);margin-bottom:5px">هل أنت متأكد من حذف:</p>
+  <p id="dName" style="font-size:15px;font-weight:700;margin-bottom:12px"></p>
+  <p style="font-size:12px;color:var(--red);background:rgba(239,68,68,.08);padding:10px;border-radius:8px">⚠️ لا يمكن التراجع عن الحذف</p>
+  <div class="fa">
+    <button class="btn bo" onclick="cm('dModal')">إلغاء</button>
+    <button class="btn br" onclick="confirmDel()">🗑️ حذف</button>
+  </div>
+</div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const MONTHS=['يناير','فبراير','مارس','أبريل','مايو','يونيو','يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
+
+let DB=[
+  {id:1,name:"يوسف مانع",nid:"0",phone:"590578008",prod:"",buyDate:"",due:5533,cost:4150,monthly:450,paid:3500,late:1000,remaining:2033,status:"متأخر",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:2,name:"مهدي لبيد",nid:"1107593624",phone:"507478546",prod:"",buyDate:"",due:6200,cost:4500,monthly:500,paid:3000,late:2000,remaining:3200,status:"متأخر",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:3,name:"ناصر ال مهري",nid:"1035405529",phone:"506916551",prod:"",buyDate:"",due:6200,cost:4500,monthly:500,paid:3000,late:2000,remaining:3200,status:"متأخر",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:4,name:"فهد الفطيح",nid:"1112206469",phone:"555679433",prod:"",buyDate:"",due:6200,cost:4500,monthly:500,paid:2000,late:3000,remaining:4200,status:"متأخر",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:5,name:"الزباد1ين",nid:"0",phone:"",prod:"",buyDate:"",due:6333,cost:4500,monthly:500,paid:6333,late:0,remaining:0,status:"خالص",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:6,name:"مبارك ال عامر",nid:"1117212744",phone:"506064709",prod:"",buyDate:"",due:6200,cost:4500,monthly:500,paid:1999,late:3001,remaining:4201,status:"متأخر",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:7,name:"عبد الخالق الوادعي",nid:"1099768747",phone:"533195645",prod:"",buyDate:"",due:6366,cost:4500,monthly:500,paid:500,late:4500,remaining:5866,status:"متأخر",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:8,name:"حمد ال خريم",nid:"1066344266",phone:"554599928",prod:"",buyDate:"",due:12400,cost:9000,monthly:1000,paid:7550,late:2450,remaining:4850,status:"متأخر",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:9,name:"سامي ال حارث",nid:"1068730306",phone:"559233094",prod:"",buyDate:"",due:6433,cost:4500,monthly:500,paid:2500,late:2500,remaining:3933,status:"متأخر",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:10,name:"فايز الربيعي",nid:"1030231342",phone:"541155960",prod:"",buyDate:"",due:6559,cost:4919,monthly:500,paid:6559,late:0,remaining:0,status:"خالص",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:11,name:"مبارك اليامي",nid:"1058885151",phone:"538882802",prod:"",buyDate:"",due:8167,cost:5700,monthly:800,paid:5100,late:2900,remaining:3067,status:"متأخر",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:12,name:"هادي ال خريم",nid:"1027333598",phone:"558925619",prod:"",buyDate:"",due:6200,cost:4500,monthly:500,paid:3500,late:1500,remaining:2700,status:"متأخر",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:13,name:"عامر ال خريم",nid:"0",phone:"576155996",prod:"",buyDate:"",due:6200,cost:4500,monthly:500,paid:2000,late:3000,remaining:4200,status:"متأخر",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:14,name:"عبد الله مغفوري",nid:"1113470825",phone:"558679976",prod:"",buyDate:"",due:6433,cost:4500,monthly:500,paid:4000,late:1000,remaining:2433,status:"متأخر",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:15,name:"عطران",nid:"1083586873",phone:"551511486",prod:"",buyDate:"",due:6533,cost:4500,monthly:500,paid:4000,late:1000,remaining:2533,status:"متأخر",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:16,name:"هادي ال قراد",nid:"0",phone:"502039506",prod:"",buyDate:"",due:7600,cost:5480,monthly:650,paid:0,late:6500,remaining:7600,status:"متأخر",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:17,name:"عماد الزهراني",nid:"1032183616",phone:"502166613",prod:"",buyDate:"",due:6400,cost:4500,monthly:500,paid:6400,late:0,remaining:0,status:"خالص",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:18,name:"هديب العتيبي",nid:"1059095560",phone:"582933339",prod:"",buyDate:"",due:17700,cost:14280,monthly:1475,paid:14680,late:70,remaining:3020,status:"متأخر",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:19,name:"محد جميل",nid:"2098316736",phone:"551050708",prod:"",buyDate:"",due:6466,cost:4500,monthly:500,paid:1000,late:4000,remaining:5466,status:"متأخر",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:20,name:"فرح اليامي",nid:"1068784899",phone:"559287889",prod:"",buyDate:"",due:6433,cost:4500,monthly:500,paid:3900,late:1100,remaining:2533,status:"متأخر",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:21,name:"عبدالله عبيه",nid:"1004357164",phone:"548888789",prod:"",buyDate:"",due:6550,cost:4330,monthly:650,paid:2500,late:4000,remaining:4050,status:"متأخر",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:22,name:"ابن زندان",nid:"1004357164",phone:"550002811",prod:"",buyDate:"",due:5334,cost:4000,monthly:500,paid:3500,late:1500,remaining:1834,status:"متأخر",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:23,name:"محمد كوهن",nid:"2449589122",phone:"563344744",prod:"",buyDate:"",due:14350,cost:10200,monthly:1200,paid:6000,late:1200,remaining:8350,status:"متأخر",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:24,name:"يوسف مانع 2",nid:"0",phone:"",prod:"",buyDate:"",due:6150,cost:4500,monthly:500,paid:4000,late:1000,remaining:2150,status:"متأخر",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:25,name:"محمد جميل مشعل",nid:"2098316736",phone:"55150708",prod:"",buyDate:"",due:6533,cost:4500,monthly:500,paid:3000,late:2000,remaining:3533,status:"متأخر",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:26,name:"مازن الغامدي",nid:"1103764286",phone:"538931201",prod:"",buyDate:"",due:6600,cost:4500,monthly:500,paid:4950,late:50,remaining:1650,status:"متأخر",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:27,name:"احمد حاتم",nid:"0",phone:"",prod:"",buyDate:"",due:4125,cost:4125,monthly:0,paid:0,late:0,remaining:4125,status:"منتظم",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:28,name:"مهدي الغباري",nid:"110427256",phone:"551609896",prod:"",buyDate:"",due:7200,cost:5300,monthly:500,paid:3500,late:1000,remaining:3700,status:"متأخر",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:29,name:"خليل ال معيض",nid:"1079253777",phone:"550084993",prod:"",buyDate:"",due:5766,cost:4050,monthly:450,paid:4050,late:0,remaining:1716,status:"منتظم",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:30,name:"ابراهيم ال قضيع",nid:"1111202501",phone:"535126507",prod:"",buyDate:"",due:5866,cost:4300,monthly:500,paid:0,late:4500,remaining:5866,status:"متأخر",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:31,name:"محمد حسين العبية",nid:"1109065209",phone:"561204820",prod:"",buyDate:"",due:6200,cost:4350,monthly:500,paid:1300,late:3200,remaining:4900,status:"متأخر",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:32,name:"محمد حسين ال مرشد",nid:"1134797131",phone:"550156671",prod:"",buyDate:"",due:10700,cost:8000,monthly:300,paid:4200,late:0,remaining:6500,status:"منتظم",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:33,name:"محمد الحارث",nid:"0",phone:"594446664",prod:"",buyDate:"",due:9467,cost:7100,monthly:789,paid:1000,late:6101,remaining:8467,status:"متأخر",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:34,name:"احمد طاحش",nid:"0",phone:"551239927",prod:"",buyDate:"",due:9500,cost:5700,monthly:500,paid:500,late:3000,remaining:9000,status:"متأخر",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:35,name:"مكي فنيس",nid:"1077540480",phone:"500804016",prod:"",buyDate:"",due:7733,cost:5700,monthly:650,paid:1900,late:2650,remaining:5833,status:"متأخر",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:36,name:"حمد مرزاح ال عباس",nid:"1072485780",phone:"599988874",prod:"",buyDate:"",due:8666,cost:6500,monthly:700,paid:8666,late:0,remaining:0,status:"خالص",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:37,name:"حمد حسن ال جعفر",nid:"1063630543",phone:"557363439",prod:"",buyDate:"",due:8900,cost:6400,monthly:750,paid:4500,late:750,remaining:4400,status:"متأخر",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:38,name:"عبد الرحمن الصقري",nid:"1069504692",phone:"558889723",prod:"",buyDate:"",due:8900,cost:6400,monthly:750,paid:4000,late:1250,remaining:4900,status:"متأخر",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:39,name:"طه السوداني",nid:"2519124909",phone:"554621547",prod:"",buyDate:"",due:7100,cost:4900,monthly:600,paid:3700,late:500,remaining:3400,status:"متأخر",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:40,name:"ناصر مرزاح",nid:"1098209834",phone:"580762248",prod:"",buyDate:"",due:7500,cost:5600,monthly:650,paid:3150,late:1400,remaining:4350,status:"متأخر",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:41,name:"ام احمد",nid:"1047564776",phone:"502485034",prod:"",buyDate:"",due:15267,cost:11050,monthly:1300,paid:7632,late:1468,remaining:7635,status:"متأخر",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:42,name:"سالم لسلوم",nid:"1079265334",phone:"555844358",prod:"",buyDate:"",due:7100,cost:4900,monthly:590,paid:1800,late:2330,remaining:5300,status:"متأخر",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:43,name:"قرمان",nid:"1101342200",phone:"537282138",prod:"",buyDate:"",due:6266,cost:4520,monthly:550,paid:2750,late:1100,remaining:3516,status:"متأخر",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:44,name:"صالح العجي",nid:"1064669490",phone:"501148090",prod:"",buyDate:"",due:7333,cost:5100,monthly:600,paid:1000,late:3200,remaining:6333,status:"متأخر",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:45,name:"عبدالله حمامة",nid:"1059181063",phone:"509991181",prod:"",buyDate:"",due:6800,cost:5100,monthly:600,paid:3300,late:900,remaining:3500,status:"متأخر",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:46,name:"صدام الامير",nid:"0",phone:"551109632",prod:"",buyDate:"",due:13866,cost:10400,monthly:1155,paid:0,late:8085,remaining:13866,status:"متأخر",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:47,name:"ماجد شضاف",nid:"1099452672",phone:"564346316",prod:"",buyDate:"",due:7333,cost:5100,monthly:600,paid:3000,late:600,remaining:4333,status:"متأخر",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:48,name:"همام ال همام",nid:"1079086854",phone:"534544436",prod:"",buyDate:"",due:7333,cost:5100,monthly:600,paid:2400,late:1200,remaining:4933,status:"متأخر",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:49,name:"احمد صالح ال مرشد",nid:"0",phone:"",prod:"",buyDate:"",due:7866,cost:5900,monthly:655,paid:7866,late:0,remaining:0,status:"خالص",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:50,name:"علي حمد قميش",nid:"1063668394",phone:"533376794",prod:"",buyDate:"",due:38000,cost:27500,monthly:3500,paid:10500,late:10500,remaining:27500,status:"متأخر",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:51,name:"ابو بكر الصديق",nid:"2498275557",phone:"507283827",prod:"",buyDate:"",due:6900,cost:5200,monthly:575,paid:2875,late:575,remaining:4025,status:"متأخر",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:52,name:"عزان ال خريم",nid:"1063668394",phone:"544514555",prod:"",buyDate:"",due:6200,cost:4500,monthly:520,paid:6200,late:0,remaining:0,status:"خالص",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:53,name:"سماح ال شيبان",nid:"1071540759",phone:"550702646",prod:"",buyDate:"",due:7800,cost:5450,monthly:650,paid:6000,late:0,remaining:1800,status:"منتظم",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:54,name:"عبدالله نصيب",nid:"1086302138",phone:"506606969",prod:"",buyDate:"",due:11500,cost:7300,monthly:1000,paid:4000,late:2000,remaining:7500,status:"متأخر",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:55,name:"محمد جميل خاص",nid:"2098316736",phone:"551050708",prod:"",buyDate:"",due:5866,cost:4400,monthly:500,paid:0,late:3000,remaining:5866,status:"متأخر",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:56,name:"عبدالله المصعبي",nid:"0",phone:"555707002",prod:"",buyDate:"",due:7067,cost:5100,monthly:500,paid:7067,late:0,remaining:0,status:"خالص",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:57,name:"نوره القرعاوي",nid:"1064816992",phone:"549991061",prod:"",buyDate:"",due:7200,cost:5400,monthly:600,paid:3000,late:0,remaining:4200,status:"منتظم",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:58,name:"فارس مرشد",nid:"",phone:"501037222",prod:"",buyDate:"",due:7066,cost:5100,monthly:600,paid:2000,late:0,remaining:5066,status:"منتظم",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:59,name:"مسفر الوادعي",nid:"1051474391",phone:"",prod:"",buyDate:"",due:7733,cost:5700,monthly:650,paid:1600,late:350,remaining:6133,status:"متأخر",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:60,name:"ددو",nid:"1081941534",phone:"503591441",prod:"",buyDate:"",due:7066,cost:5100,monthly:550,paid:2100,late:0,remaining:4966,status:"منتظم",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:61,name:"حسين الفارسي",nid:"0",phone:"",prod:"",buyDate:"",due:5600,cost:5050,monthly:650,paid:1000,late:950,remaining:4600,status:"متأخر",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:62,name:"عبد الرحمن مجحود",nid:"1026254217",phone:"599950973",prod:"",buyDate:"",due:14133,cost:10200,monthly:1150,paid:3150,late:300,remaining:10983,status:"متأخر",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:63,name:"فهد ال حارث",nid:"0",phone:"564710444",prod:"",buyDate:"",due:5300,cost:3390,monthly:400,paid:2000,late:0,remaining:3300,status:"منتظم",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:64,name:"ابراهيم العسيري",nid:"1101428454",phone:"566658696",prod:"",buyDate:"",due:7200,cost:5150,monthly:500,paid:1500,late:0,remaining:5700,status:"منتظم",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:65,name:"عبد الفتاح شمسان",nid:"2183501622",phone:"551816575",prod:"",buyDate:"",due:7200,cost:5200,monthly:600,paid:2000,late:0,remaining:5200,status:"منتظم",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:66,name:"احمد صالح ال مرشد 6200",nid:"1045938303",phone:"551506362",prod:"",buyDate:"",due:6200,cost:4600,monthly:500,paid:6200,late:0,remaining:0,status:"خالص",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:67,name:"مهدي راكان الجعفر",nid:"1059147601",phone:"544412966",prod:"",buyDate:"",due:12400,cost:9250,monthly:1000,paid:2750,late:6250,remaining:9650,status:"متأخر",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:68,name:"صالح ال لبيد",nid:"1075701480",phone:"",prod:"",buyDate:"",due:7266,cost:5150,monthly:0,paid:7266,late:0,remaining:0,status:"خالص",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:69,name:"طلال القحطاني",nid:"1104261027",phone:"",prod:"",buyDate:"",due:6600,cost:4600,monthly:500,paid:4000,late:500,remaining:2600,status:"متأخر",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:70,name:"احمد النومسي",nid:"1073666396",phone:"558919592",prod:"",buyDate:"",due:6600,cost:4600,monthly:500,paid:4050,late:450,remaining:2550,status:"متأخر",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:71,name:"حسين الصقور",nid:"1101664850",phone:"533813892",prod:"",buyDate:"",due:6350,cost:4650,monthly:500,paid:0,late:4500,remaining:6350,status:"متأخر",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:72,name:"ابراهيم اليامي",nid:"1100866084",phone:"504612307",prod:"",buyDate:"",due:6350,cost:4650,monthly:500,paid:1000,late:3500,remaining:5350,status:"متأخر",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:73,name:"صالح ال مطارد",nid:"1095232979",phone:"507194975",prod:"",buyDate:"",due:6200,cost:4650,monthly:500,paid:2500,late:2000,remaining:3700,status:"متأخر",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:74,name:"ابراهيم ال سوار",nid:"1050444049",phone:"501786255",prod:"",buyDate:"",due:6200,cost:4600,monthly:500,paid:5700,late:0,remaining:500,status:"منتظم",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:75,name:"سعيد بليه اليامي",nid:"1058885144",phone:"538882802",prod:"",buyDate:"",due:12550,cost:9330,monthly:1000,paid:6000,late:3000,remaining:6550,status:"متأخر",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:76,name:"سامي قاسم",nid:"1068730306",phone:"559233094",prod:"",buyDate:"",due:6233,cost:4675,monthly:500,paid:2000,late:2500,remaining:4233,status:"متأخر",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:77,name:"مهدي الزبادين",nid:"551213305",phone:"551213305",prod:"",buyDate:"",due:6200,cost:4620,monthly:500,paid:6200,late:0,remaining:0,status:"خالص",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:78,name:"متعب ال زندان",nid:"1076433901",phone:"550002811",prod:"",buyDate:"",due:13626,cost:9950,monthly:500,paid:4500,late:0,remaining:9126,status:"منتظم",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:79,name:"حسام",nid:"0",phone:"537158415",prod:"",buyDate:"",due:6533,cost:4700,monthly:500,paid:0,late:4500,remaining:6533,status:"متأخر",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:80,name:"عبد الله الصقري",nid:"1045074885",phone:"541844410",prod:"",buyDate:"",due:7733,cost:5400,monthly:650,paid:3900,late:1950,remaining:3833,status:"متأخر",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:81,name:"بسام ويوسف",nid:"2331758587",phone:"557495521",prod:"",buyDate:"",due:13866,cost:10400,monthly:1155,paid:0,late:0,remaining:13866,status:"منتظم",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:82,name:"يوسف(سد العجز)",nid:"0",phone:"",prod:"",buyDate:"",due:70000,cost:70000,monthly:0,paid:11100,late:0,remaining:58900,status:"منتظم",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:83,name:"أحمد عادل",nid:"2512131828",phone:"553996790",prod:"",buyDate:"",due:5500,cost:5500,monthly:1185,paid:0,late:7110,remaining:5500,status:"متأخر",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:84,name:"بسام ويوسف2",nid:"2331758587",phone:"557495521",prod:"",buyDate:"",due:7466,cost:5600,monthly:500,paid:0,late:0,remaining:7466,status:"منتظم",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:85,name:"خالد بن أحمد مرشد",nid:"0",phone:"553355150",prod:"",buyDate:"",due:14666,cost:11000,monthly:1222,paid:1223,late:0,remaining:13443,status:"منتظم",stopDate:"",stopReason:"",bond:"",payments:[]},
+  {id:86,name:"ناصر محمد العجي",nid:"0",phone:"502395161",prod:"",buyDate:"",due:7333,cost:5500,monthly:611,paid:600,late:11,remaining:6733,status:"متأخر",stopDate:"",stopReason:"",bond:"",payments:[]},
+];
+
+let nid=87,filt='all',sc=8,sa=false,lsc=8,lsa=false,eid=null,pid=null,did=null,sid=null;
+const fmt=n=>Math.round(n||0).toLocaleString('ar-SA');
+const td=()=>new Date().toISOString().slice(0,10);
+const g=id=>document.getElementById(id);
+
+function save(){try{localStorage.setItem('hq3',JSON.stringify(DB));localStorage.setItem('hq3n',nid)}catch(e){}}
+function load(){try{const d=localStorage.getItem('hq3');if(d){DB=JSON.parse(d);nid=+localStorage.getItem('hq3n')||87}}catch(e){}}
+load();
+
+function bdg(s){
+  if(s==='متأخر')return'<span class="bdg bl2">⚠️ متأخر</span>';
+  if(s==='منتظم')return'<span class="bdg br2">✅ منتظم</span>';
+  if(s==='موقوف')return'<span class="bdg bs2">🚫 موقوف</span>';
+  return'<span class="bdg bp2">💙 خالص</span>';
+}
+
+function prodTag(c){return c.prod?`<span class="prod-tag">📦 ${c.prod}${c.buyDate?' — '+c.buyDate:''}</span>`:'<span style="color:var(--muted);font-size:12px">—</span>';}
+
+function stats(){
+  const s={tot:0,paid:0,rem:0,late:0,lC:0,rC:0,pC:0,stC:0,n:DB.length};
+  DB.forEach(c=>{s.tot+=c.due;s.paid+=c.paid;s.rem+=c.remaining;s.late+=c.late;
+    if(c.status==='متأخر')s.lC++;else if(c.status==='منتظم')s.rC++;
+    else if(c.status==='خالص')s.pC++;else if(c.status==='موقوف')s.stC++;});
+  return s;
+}
+
+function inWin(ds,m,y){
+  if(!ds)return false;
+  const d=new Date(ds),dm=d.getMonth()+1,dy=d.getFullYear(),dd=d.getDate();
+  let pm=m-1,py=y;if(pm===0){pm=12;py--;}
+  return new Date(dy,dm-1,dd)>=new Date(py,pm-1,27)&&new Date(dy,dm-1,dd)<=new Date(y,m-1,5);
+}
+
+// KPI
+function renderKPI(){
+  const s=stats();
+  g('kpiGrid').innerHTML=`
+  <div class="kpi gd"><div class="ki">💰</div><div class="kl">إجمالي المستحق</div><div class="kv">${fmt(s.tot)}</div><div class="ku">ريال</div></div>
+  <div class="kpi gn"><div class="ki">✅</div><div class="kl">إجمالي المحصّل</div><div class="kv">${fmt(s.paid)}</div><div class="ku">ريال</div></div>
+  <div class="kpi rd"><div class="ki">⏳</div><div class="kl">إجمالي المتبقي</div><div class="kv">${fmt(s.rem)}</div><div class="ku">ريال</div></div>
+  <div class="kpi or"><div class="ki">⚠️</div><div class="kl">إجمالي المتأخرات</div><div class="kv">${fmt(s.late)}</div><div class="ku">ريال</div></div>
+  <div class="kpi pp"><div class="ki">🚫</div><div class="kl">موقوف الخدمة</div><div class="kv">${s.stC}</div><div class="ku">عميل</div></div>
+  <div class="kpi bl"><div class="ki">👥</div><div class="kl">إجمالي العملاء</div><div class="kv">${s.n}</div><div class="ku">عميل</div></div>`;
+}
+
+// DONUT
+function renderDonut(){
+  const s=stats();const T=s.n||1;
+  const cx=59,cy=59,r=44,c=2*Math.PI*r;
+  const it=[{col:'#ef4444',v:s.lC,l:'متأخر'},{col:'#22c55e',v:s.rC,l:'منتظم'},{col:'#3b82f6',v:s.pC,l:'خالص'},{col:'#a855f7',v:s.stC,l:'موقوف'}];
+  let off=0,sg='';
+  it.forEach(x=>{const p=x.v/T,d=p*c;sg+=`<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${x.col}" stroke-width="13" stroke-dasharray="${d} ${c-d}" stroke-dashoffset="${-off*c}" transform="rotate(-90 ${cx} ${cy})" stroke-linecap="round"/>`;off+=p;});
+  g('dsvg').innerHTML=sg+`<text x="${cx}" y="${cy-3}" text-anchor="middle" fill="#f1f5f9" font-size="17" font-weight="900" font-family="Cairo">${T}</text><text x="${cx}" y="${cy+11}" text-anchor="middle" fill="#64748b" font-size="10" font-family="Cairo">عميل</text>`;
+  g('dleg').innerHTML=it.map(x=>`<div style="display:flex;align-items:center;gap:8px;margin-bottom:9px;cursor:pointer;padding:4px 6px;border-radius:7px" onclick="setFilter('${x.l}',null)">
+    <div style="width:8px;height:8px;border-radius:50%;background:${x.col};flex-shrink:0"></div>
+    <div style="font-size:12px;flex:1">${x.l}</div>
+    <div style="font-size:11px;color:var(--muted)">${(x.v/T*100).toFixed(0)}%</div>
+    <div style="font-size:13px;font-weight:700;color:${x.col}">${x.v}</div>
+  </div>`).join('');
+}
+
+// COLLECTION RATE
+function renderCrate(){
+  const s=stats();const rate=(s.paid/Math.max(s.tot,1)*100).toFixed(1);
+  g('crate').innerHTML=`<div style="text-align:center;margin-bottom:16px"><div style="font-size:42px;font-weight:900;color:var(--gold);line-height:1">${rate}%</div><div style="font-size:12px;color:var(--muted2);margin-top:4px">نسبة التحصيل الإجمالية</div></div>
+  ${[{l:'✅ محصّل',v:s.paid,c:'var(--green)',p:rate},{l:'⏳ متبقي',v:s.rem,c:'var(--red)',p:(s.rem/Math.max(s.tot,1)*100).toFixed(1)},{l:'⚠️ متأخرات',v:s.late,c:'var(--orange)',p:(s.late/Math.max(s.tot,1)*100).toFixed(1)}].map(x=>`
+  <div class="pi"><div class="ph"><span style="color:${x.c}">${x.l}</span><span style="color:${x.c};font-weight:700">${fmt(x.v)} ﷼</span></div><div class="pt"><div class="pf" style="width:${x.p}%;background:${x.c}"></div></div></div>`).join('')}`;
+}
+
+// TOP BAR
+function renderTopBar(){
+  const top=DB.filter(c=>c.remaining>0).sort((a,b)=>b.remaining-a.remaining).slice(0,10);
+  const mx=top[0]?.remaining||1;
+  g('topbar').innerHTML=top.map(c=>{
+    const pct=(c.remaining/mx*100).toFixed(1);
+    const col=c.status==='متأخر'?'var(--red)':c.status==='موقوف'?'var(--purple)':'var(--gold)';
+    return`<div class="bi"><div class="bn2">${c.name}</div><div class="bt"><div class="bf" style="width:${pct}%;background:${col}"><span class="ba">${fmt(c.remaining)}</span></div></div></div>`;
+  }).join('');
+}
+
+// STAT BOXES
+function renderStat(){
+  const s=stats();
+  g('statboxes').innerHTML=`
+  <div class="sb"><h3>ملخص الحالات</h3>
+    <div class="sr"><span class="sk">متأخرون</span><span style="color:var(--red);font-weight:700">${s.lC}</span></div>
+    <div class="sr"><span class="sk">منتظمون</span><span style="color:var(--green);font-weight:700">${s.rC}</span></div>
+    <div class="sr"><span class="sk">خالصون</span><span style="color:var(--blue);font-weight:700">${s.pC}</span></div>
+    <div class="sr"><span class="sk">موقوف الخدمة</span><span style="color:var(--purple);font-weight:700">${s.stC}</span></div>
+    <div class="sr"><span class="sk">الإجمالي</span><span>${s.n}</span></div>
+  </div>
+  <div class="sb"><h3>ملخص المبالغ</h3>
+    <div class="sr"><span class="sk">المستحق</span><span style="color:var(--gold);font-weight:700">${fmt(s.tot)} ﷼</span></div>
+    <div class="sr"><span class="sk">المحصّل</span><span style="color:var(--green);font-weight:700">${fmt(s.paid)} ﷼</span></div>
+    <div class="sr"><span class="sk">المتبقي</span><span style="color:var(--red);font-weight:700">${fmt(s.rem)} ﷼</span></div>
+    <div class="sr"><span class="sk">المتأخرات</span><span style="color:var(--orange);font-weight:700">${fmt(s.late)} ﷼</span></div>
+  </div>
+  <div class="sb"><h3>المتوسطات</h3>
+    <div class="sr"><span class="sk">متوسط المستحق</span><span>${fmt(s.tot/s.n)} ﷼</span></div>
+    <div class="sr"><span class="sk">متوسط المحصّل</span><span>${fmt(s.paid/s.n)} ﷼</span></div>
+    <div class="sr"><span class="sk">متوسط المتبقي</span><span>${fmt(s.rem/s.n)} ﷼</span></div>
+    <div class="sr"><span class="sk">نسبة التحصيل</span><span style="color:var(--gold)">${(s.paid/Math.max(s.tot,1)*100).toFixed(1)}%</span></div>
+  </div>`;
+}
+
+// MONTHLY
+function initM(){const n=new Date();g('msel').value=n.getMonth()+1;g('ysel').value=n.getFullYear();}
+function renderMonthly(){
+  const m=+g('msel').value,y=+g('ysel').value;
+  const active=DB.filter(c=>c.status!=='خالص'&&c.monthly>0);
+  const paid=[],late=[];let tot=0;
+  active.forEach(c=>{const p=c.payments?.find(x=>inWin(x.date,m,y));if(p){paid.push({c,p});tot+=p.amount;}else late.push(c);});
+  const exp=active.reduce((a,c)=>a+c.monthly,0);
+  const rt=exp>0?(tot/exp*100).toFixed(0):0;
+  g('msummary').innerHTML=`<div class="mg">
+    <div style="text-align:center"><div class="mv" style="color:var(--gold)">${fmt(exp)}</div><div class="ml">المتوقع ﷼</div></div>
+    <div style="text-align:center"><div class="mv" style="color:var(--green)">${fmt(tot)}</div><div class="ml">المحصّل ﷼</div></div>
+    <div style="text-align:center"><div class="mv" style="color:var(--green)">${paid.length}</div><div class="ml">دفعوا</div></div>
+    <div style="text-align:center"><div class="mv" style="color:var(--red)">${late.length}</div><div class="ml">لم يدفعوا</div></div>
+  </div>
+  <div style="margin-top:12px"><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span style="color:var(--muted2)">نسبة التحصيل هذا الشهر</span><span style="color:var(--gold);font-weight:700">${rt}%</span></div>
+  <div class="pt" style="height:9px"><div class="pf" style="width:${rt}%;background:linear-gradient(90deg,var(--green),var(--gold))"></div></div></div>`;
+  g('paidCnt').textContent=paid.length+' عميل';
+  g('lateCnt2').textContent=late.length+' عميل';
+  g('paidList').innerHTML=paid.length?paid.map(({c,p})=>`<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(42,53,72,.4);font-size:13px">
+    <div><div style="font-weight:600">${c.name}</div><div style="font-size:11px;color:var(--teal)">${c.prod||''}</div><div style="font-size:11px;color:var(--muted2)">${p.date}</div></div>
+    <div style="color:var(--green);font-weight:700">${fmt(p.amount)} ﷼</div></div>`).join(''):'<div class="empty" style="padding:18px">لا يوجد</div>';
+  g('lateList').innerHTML=late.length?late.map(c=>`<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;border-bottom:1px solid rgba(42,53,72,.4);font-size:13px">
+    <div><div style="font-weight:600">${c.name}</div><div style="font-size:11px;color:var(--teal)">${c.prod||''}</div><div style="font-size:11px;color:var(--muted2)">القسط: ${fmt(c.monthly)} ﷼</div></div>
+    <button class="ab ap2" onclick="openPay(${c.id})">💵 سداد</button></div>`).join(''):'<div class="empty" style="padding:18px;color:var(--green)">✅ الكل دفع!</div>';
+  g('mTbody').innerHTML=active.map((c,i)=>{
+    const p=c.payments?.find(x=>inWin(x.date,m,y));
+    return`<tr>
+    <td style="text-align:center;color:var(--muted)">${i+1}</td>
+    <td style="font-weight:600">${c.name}</td>
+    <td>${c.prod?`<span class="prod-tag">📦 ${c.prod}</span>`:'<span style="color:var(--muted);font-size:11px">—</span>'}</td>
+    <td style="color:var(--teal);font-size:12px">${c.bond?`📋 ${c.bond}`:'—'}</td>
+    <td style="text-align:center;direction:ltr"><span class="ng" style="font-variant-numeric:tabular-nums;font-weight:700">${fmt(c.monthly)}</span></td>
+    <td style="text-align:center;direction:ltr">${p?`<span class="nn" style="font-variant-numeric:tabular-nums;font-weight:700">${fmt(p.amount)}</span>`:'—'}</td>
+    <td style="text-align:center;font-size:12px;color:var(--muted2)">${p?p.date:'—'}</td>
+    <td style="text-align:center">${p?'<span class="bdg br2">✅ دفع</span>':'<span class="bdg bl2">⚠️ لم يدفع</span>'}</td>
+    <td style="text-align:center"><button class="ab ap2" onclick="openPay(${c.id})">💵</button></td></tr>`;
+  }).join('');
+}
+
+// CLIENTS TABLE
+function renderTable(){
+  const q=(g('srch')?.value||'').toLowerCase();
+  let data=[...DB];
+  if(filt!=='all')data=data.filter(c=>c.status===filt);
+  if(q)data=data.filter(c=>c.name.toLowerCase().includes(q)||c.phone.includes(q)||(c.prod||'').toLowerCase().includes(q)||(c.bond||'').toLowerCase().includes(q));
+  const flds=['id','name','phone','due','cost','monthly','paid','late','remaining','status'];
+  data.sort((a,b)=>{const f=flds[sc],av=a[f],bv=b[f];if(typeof av==='number')return sa?av-bv:bv-av;return sa?String(av).localeCompare(String(bv),'ar'):String(bv).localeCompare(String(av),'ar');});
+  const CA='style="text-align:center"', LA='style="direction:ltr;text-align:left"';
+  g('tbody').innerHTML=data.map((c,i)=>`<tr class="${c.status==='موقوف'?'srow':''}">
+    <td ${CA} style="color:var(--muted);text-align:center;width:42px">${i+1}</td>
+    <td style="font-weight:700;max-width:150px;overflow:hidden;text-overflow:ellipsis" title="${c.name}">${c.name}</td>
+    <td style="direction:ltr;text-align:center;font-size:12px;color:var(--muted2);letter-spacing:.5px">${c.phone||'—'}</td>
+    <td style="max-width:120px;overflow:hidden;text-overflow:ellipsis">${c.prod?`<span class="prod-tag">📦 ${c.prod}</span>`:'<span style="color:var(--muted);font-size:11px">—</span>'}</td>
+    <td style="text-align:center;font-size:12px;color:var(--muted2)">${c.buyDate||'—'}</td>
+    <td style="max-width:140px;overflow:hidden;text-overflow:ellipsis;color:var(--teal);font-size:12px" title="${c.bond||''}">${c.bond?`📋 ${c.bond}`:'<span style="color:var(--muted);font-size:11px">—</span>'}</td>
+    <td style="text-align:center;direction:ltr"><span class="ng" style="font-variant-numeric:tabular-nums;font-weight:700">${fmt(c.due)}</span></td>
+    <td style="text-align:center;direction:ltr"><span class="nn" style="font-variant-numeric:tabular-nums;font-weight:700">${fmt(c.paid)}</span></td>
+    <td style="text-align:center;direction:ltr"><span class="no" style="font-variant-numeric:tabular-nums;font-weight:700">${fmt(c.late)}</span></td>
+    <td style="text-align:center;direction:ltr"><span class="${c.remaining>0?'nr':'nn'}" style="font-variant-numeric:tabular-nums;font-weight:700">${fmt(c.remaining)}</span></td>
+    <td style="text-align:center">${bdg(c.status)}</td>
+    <td style="text-align:center"><div class="ta" style="justify-content:center">
+      <button class="ab ap2" onclick="openPay(${c.id})" title="تسجيل سداد">💵</button>
+      <button class="ab ae" onclick="openEdit(${c.id})" title="تعديل">✏️</button>
+      <button class="ab ast" onclick="openStop(${c.id})" title="إيقاف الخدمة">🚫</button>
+      <button class="ab ad" onclick="openDel(${c.id})" title="حذف">🗑️</button>
+    </div></td>
+  </tr>`).join('')||'<tr><td colspan="12"><div class="empty">لا توجد نتائج</div></td></tr>';
+  g('tcount').textContent=`${data.length} / ${DB.length} عميل`;
+}
+function srt(col){if(sc===col)sa=!sa;else{sc=col;sa=false;}renderTable();}
+
+function setFilter(f,el){
+  filt=f;
+  document.querySelectorAll('.chip').forEach(b=>b.className='chip');
+  if(el){el.classList.add(f==='all'?'aa':f==='متأخر'?'al':f==='منتظم'?'ar':f==='خالص'?'ap':'as');}
+  renderTable();sv('clients',document.querySelectorAll('.nb')[2]);
+}
+
+// LATE TABLE
+function renderLate(){
+  let data=DB.filter(c=>c.status==='متأخر');
+  data.sort((a,b)=>lsa?a[['id','name','phone','due','cost','monthly','paid','late','remaining'][lsc]]-b[['id','name','phone','due','cost','monthly','paid','late','remaining'][lsc]]:b[['id','name','phone','due','cost','monthly','paid','late','remaining'][lsc]]-a[['id','name','phone','due','cost','monthly','paid','late','remaining'][lsc]]);
+  g('lateBadge').textContent=data.length+' عميل متأخر';
+  g('lTbody').innerHTML=data.map((c,i)=>`<tr>
+    <td style="text-align:center;color:var(--muted)">${i+1}</td>
+    <td style="font-weight:700">${c.name}</td>
+    <td style="direction:ltr;text-align:center;font-size:12px;color:var(--muted2)">${c.phone||'—'}</td>
+    <td>${c.prod?`<span class="prod-tag">📦 ${c.prod}</span>`:'<span style="color:var(--muted);font-size:11px">—</span>'}</td>
+    <td style="color:var(--teal);font-size:12px">${c.bond?`📋 ${c.bond}`:'—'}</td>
+    <td style="text-align:center;direction:ltr"><span class="no" style="font-variant-numeric:tabular-nums;font-weight:700">${fmt(c.late)}</span></td>
+    <td style="text-align:center;direction:ltr"><span class="nr" style="font-variant-numeric:tabular-nums;font-weight:700">${fmt(c.remaining)}</span></td>
+    <td style="text-align:center;direction:ltr"><span class="ng" style="font-variant-numeric:tabular-nums;font-weight:700">${fmt(c.monthly)}</span></td>
+    <td style="text-align:center"><div class="ta" style="justify-content:center">
+      <button class="ab ap2" onclick="openPay(${c.id})">💵 سداد</button>
+      <button class="ab ast" onclick="openStop(${c.id})">🚫 إيقاف</button>
+    </div></td>
+  </tr>`).join('');
+}
+function srtL(col){if(lsc===col)lsa=!lsa;else{lsc=col;lsa=false;}renderLate();}
+
+// STOPPED TABLE
+function renderStopped(){
+  const data=DB.filter(c=>c.status==='موقوف');
+  g('stopBadge').textContent=data.length+' عميل موقوف';
+  g('sTbody').innerHTML=data.length?data.map((c,i)=>`<tr class="srow">
+    <td style="text-align:center;color:var(--muted)">${i+1}</td>
+    <td style="font-weight:700">${c.name}</td>
+    <td style="direction:ltr;text-align:center;font-size:12px;color:var(--muted2)">${c.phone||'—'}</td>
+    <td>${c.prod?`<span class="prod-tag">📦 ${c.prod}</span>`:'<span style="color:var(--muted);font-size:11px">—</span>'}</td>
+    <td style="color:var(--teal);font-size:12px">${c.bond?`📋 ${c.bond}`:'—'}</td>
+    <td style="text-align:center;direction:ltr"><span class="nr" style="font-variant-numeric:tabular-nums;font-weight:700">${fmt(c.remaining)}</span></td>
+    <td style="text-align:center;font-size:12px;color:var(--muted2)">${c.stopDate||'—'}</td>
+    <td style="font-size:12px;color:var(--muted2)">${c.stopReason||'—'}</td>
+    <td style="text-align:center"><div class="ta" style="justify-content:center">
+      <button class="ab ap2" onclick="openPay(${c.id})">💵 سداد</button>
+      <button class="ab" style="background:rgba(34,197,94,.1);color:var(--green)" onclick="restore(${c.id})">↩️ استعادة</button>
+    </div></td>
+  </tr>`).join(''):'<tr><td colspan="9"><div class="empty">لا يوجد عملاء موقوفة خدمتهم 🎉</div></td></tr>';
+}
+
+function restore(id){
+  const c=DB.find(x=>x.id===id);if(!c)return;
+  c.status=c.remaining>0?(c.late>0?'متأخر':'منتظم'):'خالص';
+  c.stopDate='';c.stopReason='';
+  save();refresh();toast('✅ تم استعادة خدمة '+c.name,'success');
+}
+
+// ANALYTICS
+function renderAnalytics(){
+  const s=stats();
+  const now=new Date();
+  const months=[];
+  for(let i=5;i>=0;i--){const d=new Date(now.getFullYear(),now.getMonth()-i,1);months.push({m:d.getMonth()+1,y:d.getFullYear(),l:MONTHS[d.getMonth()]});}
+  const md=months.map(({m,y,l})=>{let t=0;DB.forEach(c=>{c.payments?.forEach(p=>{if(inWin(p.date,m,y))t+=p.amount;});});return{l,t};});
+  const mx=Math.max(...md.map(x=>x.t),1);
+
+  g('acards').innerHTML=`
+  <div class="sb"><h3>سرعة التحصيل</h3>
+    <div class="sr"><span class="sk">دفعوا كاملاً</span><span style="color:var(--blue)">${DB.filter(c=>c.remaining===0).length}</span></div>
+    <div class="sr"><span class="sk">لم يدفعوا شيء</span><span style="color:var(--red)">${DB.filter(c=>c.paid===0).length}</span></div>
+    <div class="sr"><span class="sk">دفعوا جزئياً</span><span>${DB.filter(c=>c.paid>0&&c.remaining>0).length}</span></div>
+  </div>
+  <div class="sb"><h3>بيان المنتجات</h3>
+    <div class="sr"><span class="sk">بمنتج مسجّل</span><span style="color:var(--teal)">${DB.filter(c=>c.prod).length}</span></div>
+    <div class="sr"><span class="sk">بدون منتج</span><span style="color:var(--muted)">${DB.filter(c=>!c.prod).length}</span></div>
+    <div class="sr"><span class="sk">بتاريخ شراء</span><span style="color:var(--teal)">${DB.filter(c=>c.buyDate).length}</span></div>
+  </div>
+  <div class="sb"><h3>إحصائيات عامة</h3>
+    <div class="sr"><span class="sk">أعلى مديونية</span><span style="color:var(--red)">${fmt(Math.max(...DB.map(c=>c.remaining)))} ﷼</span></div>
+    <div class="sr"><span class="sk">أعلى مستحق</span><span style="color:var(--gold)">${fmt(Math.max(...DB.map(c=>c.due)))} ﷼</span></div>
+    <div class="sr"><span class="sk">نسبة التحصيل</span><span style="color:var(--gold)">${(s.paid/Math.max(s.tot,1)*100).toFixed(1)}%</span></div>
+  </div>`;
+
+  g('mchart').innerHTML=md.map(({l,t})=>`<div class="bi"><div class="bn2">${l}</div><div class="bt"><div class="bf" style="width:${t>0?(t/mx*100).toFixed(1):'3'}%;background:linear-gradient(90deg,var(--teal),var(--blue))"><span class="ba">${t>0?fmt(t):'—'}</span></div></div></div>`).join('');
+
+  g('ratestat').innerHTML=['متأخر','منتظم','خالص'].map(st=>{
+    const grp=DB.filter(c=>c.status===st);
+    const tot=grp.reduce((a,c)=>a+c.due,0)||1;
+    const col=grp.reduce((a,c)=>a+c.paid,0);
+    const rt=(col/tot*100).toFixed(0);
+    const color=st==='متأخر'?'var(--red)':st==='منتظم'?'var(--gold)':'var(--blue)';
+    return`<div class="pi"><div class="ph"><span>${bdg(st)} ${grp.length}</span><span style="color:${color};font-weight:700">${rt}%</span></div><div class="pt" style="height:10px"><div class="pf" style="width:${rt}%;background:${color}"></div></div></div>`;
+  }).join('');
+
+  const top=DB.sort((a,b)=>b.due-a.due).slice(0,15);
+  const mxd=top[0]?.due||1;
+  g('abar').innerHTML=top.map(c=>`<div style="margin-bottom:9px">
+    <div style="display:flex;justify-content:space-between;margin-bottom:2px"><span style="font-size:12px">${c.name}${c.prod?` <span style="font-size:10px;color:var(--teal)">(${c.prod})</span>`:''}</span><span style="font-size:11px;color:var(--muted2)">${fmt(c.due)} ﷼</span></div>
+    <div style="display:flex;height:14px;border-radius:3px;overflow:hidden;background:var(--s3)">
+      <div style="width:${(c.paid/mxd*100).toFixed(1)}%;background:var(--green);opacity:.85"></div>
+      <div style="width:${(c.remaining/mxd*100).toFixed(1)}%;background:var(--red);opacity:.85"></div>
+    </div>
+    <div style="display:flex;gap:12px;font-size:10px;margin-top:2px">
+      <span style="color:var(--green)">محصّل ${fmt(c.paid)}</span><span style="color:var(--red)">متبقي ${fmt(c.remaining)}</span>
+    </div></div>`).join('');
+}
+
+// === MODALS: CLIENT ===
+function openAdd(){
+  eid=null;g('mTitle').textContent='➕ إضافة عميل جديد';
+  ['fn','fi','fp','fprod','fbuydate','fbond','fdue','fcost','fmon','fpaid','flat','frem','fstopd','fstopr'].forEach(id=>{const el=g(id);if(el)el.value='';});
+  g('fstat').value='منتظم';
+  g('fbuydate').value='';
+  g('cModal').classList.add('open');
+  setTimeout(()=>g('fn').focus(),100);
+}
+
+function openEdit(id){
+  const c=DB.find(x=>x.id===id);if(!c)return;eid=id;
+  g('mTitle').textContent='✏️ تعديل بيانات العميل';
+  g('fn').value=c.name;g('fi').value=c.nid||'';g('fp').value=c.phone||'';
+  g('fprod').value=c.prod||'';g('fbuydate').value=c.buyDate||'';
+  g('fbond').value=c.bond||'';
+  g('fdue').value=c.due;g('fcost').value=c.cost;g('fmon').value=c.monthly;
+  g('fpaid').value=c.paid;g('flat').value=c.late;g('frem').value=c.remaining;
+  g('fstat').value=c.status;g('fstopd').value=c.stopDate||'';g('fstopr').value=c.stopReason||'';
+  g('cModal').classList.add('open');
+}
+
+function calcR(){
+  const due=+g('fdue').value||0,paid=+g('fpaid').value||0;
+  g('frem').value=Math.max(0,due-paid);
+}
+
+function saveClient(){
+  const name=g('fn').value.trim();if(!name){toast('أدخل اسم العميل','error');return;}
+  const due=+g('fdue').value||0;if(!due){toast('أدخل إجمالي المستحق','error');return;}
+  const obj={
+    id:eid||nid,name,nid:g('fi').value.trim(),phone:g('fp').value.trim(),
+    prod:g('fprod').value.trim(),buyDate:g('fbuydate').value||'',
+    bond:g('fbond').value.trim()||'',
+    due,cost:+g('fcost').value||0,monthly:+g('fmon').value||0,
+    paid:+g('fpaid').value||0,late:+g('flat').value||0,
+    remaining:+g('frem').value||Math.max(0,due-(+g('fpaid').value||0)),
+    status:g('fstat').value,stopDate:g('fstopd').value||'',stopReason:g('fstopr').value.trim()||'',
+    payments:eid?(DB.find(x=>x.id===eid)?.payments||[]):[]
+  };
+  if(eid){const i=DB.findIndex(x=>x.id===eid);if(i>=0)DB[i]=obj;}
+  else{DB.push(obj);nid++;}
+  save();cm('cModal');refresh();toast(eid?'✅ تم التعديل':'✅ تم إضافة العميل','success');
+}
+
+// === MODALS: PAY ===
+function openPay(id){
+  const c=DB.find(x=>x.id===id);if(!c)return;pid=id;
+  g('payInfo').innerHTML=`
+  <div class="pr"><span>العميل</span><span style="font-weight:700">${c.name}</span></div>
+  ${c.prod?`<div class="pr"><span>المنتج</span><span style="color:var(--teal);font-weight:600">${c.prod}</span></div>`:''}
+  ${c.bond?`<div class="pr"><span>📋 السند</span><span style="color:var(--teal);font-weight:600">${c.bond}</span></div>`:''}
+  ${c.bond?`<div class="pr"><span>السند</span><span style="color:var(--teal);font-weight:600">📋 ${c.bond}</span></div>`:''}
+  <div class="pr"><span>المستحق</span><span style="color:var(--gold)">${fmt(c.due)} ﷼</span></div>
+  <div class="pr"><span>المحصّل</span><span style="color:var(--green)">${fmt(c.paid)} ﷼</span></div>
+  <div class="pr"><span>المتبقي</span><span style="color:var(--red)">${fmt(c.remaining)} ﷼</span></div>`;
+  g('pamt').value='';g('pdate').value=td();g('pprevEl').style.display='none';
+  const ph=g('phist');
+  ph.innerHTML=c.payments?.length?`<div style="background:var(--s2);border-radius:9px;overflow:hidden;margin-top:12px"><div style="padding:9px 13px;font-size:11px;color:var(--muted2);font-weight:600;border-bottom:1px solid rgba(42,53,72,.5)">آخر السدادات</div>`+
+    c.payments.slice(-4).reverse().map(p=>`<div class="phi"><span style="font-size:12px;color:var(--muted2)">${p.date}</span><span style="color:var(--green);font-weight:700">${fmt(p.amount)} ﷼</span></div>`).join('')+'</div>':'';
+  g('pModal').classList.add('open');setTimeout(()=>g('pamt').focus(),100);
+}
+
+function pprev(){
+  const c=DB.find(x=>x.id===pid);if(!c)return;
+  const amt=+g('pamt').value||0;
+  if(amt<=0){g('pprevEl').style.display='none';return;}
+  g('pprevEl').style.display='block';
+  g('pprevEl').innerHTML=`بعد السداد ← محصّل: <strong style="color:var(--green)">${fmt(c.paid+amt)} ﷼</strong> | متبقي: <strong style="color:var(--red)">${fmt(Math.max(0,c.due-c.paid-amt))} ﷼</strong>`;
+}
+
+function savePay(){
+  const amt=+g('pamt').value||0;if(amt<=0){toast('أدخل مبلغ السداد','error');return;}
+  const dt=g('pdate').value;if(!dt){toast('أدخل تاريخ السداد','error');return;}
+  const c=DB.find(x=>x.id===pid);if(!c)return;
+  if(!c.payments)c.payments=[];
+  c.payments.push({date:dt,amount:amt});
+  c.paid+=amt;c.remaining=Math.max(0,c.due-c.paid);
+  if(c.remaining===0)c.status='خالص';
+  save();cm('pModal');refresh();toast('✅ تم تسجيل '+fmt(amt)+' ﷼','success');
+}
+
+// === MODALS: STOP ===
+function openStop(id){
+  sid=id;const c=DB.find(x=>x.id===id);
+  g('stName').textContent=c?.name||'';g('stDate').value=td();g('stReason').value='';
+  g('stModal').classList.add('open');
+}
+function confirmStop(){
+  const c=DB.find(x=>x.id===sid);if(!c)return;
+  c.status='موقوف';c.stopDate=g('stDate').value;c.stopReason=g('stReason').value.trim()||'عدم السداد';
+  save();cm('stModal');refresh();toast('🚫 تم إيقاف خدمة '+c.name,'info');
+}
+
+// === MODALS: DELETE ===
+function openDel(id){did=id;const c=DB.find(x=>x.id===id);g('dName').textContent=c?.name||'';g('dModal').classList.add('open');}
+function confirmDel(){DB=DB.filter(x=>x.id!==did);save();cm('dModal');refresh();toast('🗑️ تم الحذف','info');}
+function cm(id){g(id).classList.remove('open');}
+document.querySelectorAll('.ov').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open');}));
+
+// === VIEWS ===
+function sv(name,el){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));
+  g('view-'+name).classList.add('active');if(el)el.classList.add('active');
+  if(name==='monthly')renderMonthly();
+  if(name==='clients')renderTable();
+  if(name==='late')renderLate();
+  if(name==='stopped')renderStopped();
+  if(name==='analytics')renderAnalytics();
+}
+
+// === EXPORT ===
+function exportCSV(){
+  const rows=[['الاسم','الجوال','المنتج','تاريخ الشراء','السند','المستحق','المحصّل','المتأخرات','المتبقي','الحالة']];
+  DB.forEach(c=>rows.push([c.name,c.phone,c.prod||'',c.buyDate||'',c.bond||'',c.due,c.paid,c.late,c.remaining,c.status]));
+  const csv='\uFEFF'+rows.map(r=>r.join(',')).join('\n');
+  const a=document.createElement('a');a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv);
+  a.download='هاتف_القمر_'+td()+'.csv';a.click();toast('📥 تم التصدير','info');
+}
+
+// === TOAST ===
+function toast(msg,type='success'){
+  const t=g('toast');t.textContent=msg;t.className='toast '+type+' show';
+  setTimeout(()=>t.classList.remove('show'),3500);
+}
+
+// === REFRESH ===
+function refresh(){
+  renderKPI();renderDonut();renderCrate();renderTopBar();renderStat();
+  const av=document.querySelector('.view.active');
+  if(av){const id=av.id.replace('view-','');
+    if(id==='monthly')renderMonthly();if(id==='clients')renderTable();
+    if(id==='late')renderLate();if(id==='stopped')renderStopped();if(id==='analytics')renderAnalytics();}
+}
+
+// === INIT ===
+g('hdate').textContent=new Date().toLocaleDateString('ar-SA',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+initM();refresh();
+</script>
+</body>
+</html>
